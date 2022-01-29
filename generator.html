@@ -24,7 +24,11 @@
 			let data = fetch("/thesaurus.json").then((x)=>{return x.text()}).then((y)=>{return y});
 			
 			let findSynonyms = (w) => {
-				return data.then((x)=>{return x.split("\n").find(x=>x.includes(w)).split("[")[1].split("]")[0].replaceAll("\"","").split(", ")})
+				w = w.toLowerCase()
+				try {
+					return data.then((x)=>{return x.split("\n").find(x=>x.includes(w)).split("[")[1].split("]")[0].replaceAll("\"","").split(", ")})
+				}
+				catch(e) {return return data.then((x)=>{return x.split("\n").find(x=>x.includes("pancake")).split("[")[1].split("]")[0].replaceAll("\"","").split(", ")})}
 			}
 			
 			let random_number = (min,max) => {
