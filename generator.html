@@ -28,6 +28,10 @@
 			let data = fetch("/thesaurus.json").then((x)=>{return x.text()}).then((y)=>{return y});
 			let wordlist = ["pancake","swarm","dinner","understand","worm","apathy","excavation","circle","layer","church","fear","wedding","cotton","dough","conductor","poison","fixture","recommend","stall","call","horseshoe","switch","average","entertain","cup","litigation","chaos","grounds","coincide","full","carbon","strong","pollution","adopt","chimpanzee","match","fog","hand","harmful","missile","positive","responsibility","reform","parachute","exercise","flour","cheap","frequency","hot","delivery","bike"];
 			
+			let firstCapital = (wo) => {
+				return wo[0].toUpperCase() + wo.substring(1);
+			}
+			
 			let findSynonyms = (w) => {
 				w = w.toLowerCase();
 				return data.then((x)=>{return x.split("\n").find(x=>x.includes(w)).split("[")[1].split("]")[0].replaceAll("\"","").split(", ")}).catch(()=>{return data.then((x)=>{return x.split("\n").find(x=>x.includes(wordlist[random_number(0, wordlist.length)])).split("[")[1].split("]")[0].replaceAll("\"","").split(", ")})})
@@ -38,10 +42,10 @@
 			generate.onclick = async () => {
 				// The syntax 'let something = function.doSomething("value")' sets the variable 'something' to the output of 'function.doSomething("value")'
 				// In this case, we are getting the values of the input fields and putting them inside variables
-				let breakfast = (await findSynonyms(document.getElementById("breakfast").value));
-				let word = (await findSynonyms(document.getElementById("word").value));
-				let holiday = (await findSynonyms(document.getElementById("holiday").value));
-				let friends = (await findSynonyms(document.getElementById("friends").value));
+				let breakfast = firstCapital((await findSynonyms(document.getElementById("breakfast").value)));
+				let word = firstCapital((await findSynonyms(document.getElementById("word").value)));
+				let holiday = firstCapital((await findSynonyms(document.getElementById("holiday").value)));
+				let friends = firstCapital((await findSynonyms(document.getElementById("friends").value)));
 
 				let password = breakfast[random_number(0, breakfast.length)]+word[random_number(0, word.length)]+holiday[random_number(0, holiday.length)]+friends[random_number(0, friends.length)]
 				password = password.replaceAll(" ", "")+random_number(1000,9999);
