@@ -11,6 +11,14 @@
 		<a href="https://ssd.eff.org/">A good privacy guide (EFF's surveillance self-defence)</a>
 		<br><a href="/generator.html">A safe, memorable password generator</a>
 		<br><a href="/guides">A bunch of privacy guides</a>
-
+		
+		<hr>
+		
+		<pre id="readme">
+			This website uses javascript to fetch the readme and put it in this pre tag
+		</pre>
+		<script>
+			fetch('https://raw.githubusercontent.com/lockness-Ko/passwd/main/README.md').then(x=>x.text()).then((y)=>{document.getElementById("readme").innerHTML=y})
+		</script>
 	</body>
 </html>
