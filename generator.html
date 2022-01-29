@@ -42,12 +42,12 @@
 			generate.onclick = async () => {
 				// The syntax 'let something = function.doSomething("value")' sets the variable 'something' to the output of 'function.doSomething("value")'
 				// In this case, we are getting the values of the input fields and putting them inside variables
-				let breakfast = firstCapital((await findSynonyms(document.getElementById("breakfast").value)));
-				let word = firstCapital((await findSynonyms(document.getElementById("word").value)));
-				let holiday = firstCapital((await findSynonyms(document.getElementById("holiday").value)));
-				let friends = firstCapital((await findSynonyms(document.getElementById("friends").value)));
+				let breakfast = (await findSynonyms(document.getElementById("breakfast").value));
+				let word = (await findSynonyms(document.getElementById("word").value));
+				let holiday = (await findSynonyms(document.getElementById("holiday").value));
+				let friends = (await findSynonyms(document.getElementById("friends").value));
 
-				let password = breakfast[random_number(0, breakfast.length)]+word[random_number(0, word.length)]+holiday[random_number(0, holiday.length)]+friends[random_number(0, friends.length)]
+				let password = firstCapital(breakfast[random_number(0, breakfast.length)])+firstCapital(word[random_number(0, word.length)])+firstCapital(holiday[random_number(0, holiday.length)])+firstCapital(friends[random_number(0, friends.length)])
 				password = password.replaceAll(" ", "")+random_number(1000,9999);
 			
 				if(password.length >= 40) {
