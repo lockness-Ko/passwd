@@ -20,19 +20,17 @@
 		<script>
 			// Anything with two slashes before it is a comment!
 			
-			// Load the word dataset
-			let data = fetch("/thesaurus.json").then((x)=>{return x.text()}).then((y)=>{return y});
-			
-			let findSynonyms = (w) => {
-				w = w.toLowerCase()
-				try {
-					return data.then((x)=>{return x.split("\n").find(x=>x.includes(w)).split("[")[1].split("]")[0].replaceAll("\"","").split(", ")})
-				}
-				catch(e) {return return data.then((x)=>{return x.split("\n").find(x=>x.includes("pancake")).split("[")[1].split("]")[0].replaceAll("\"","").split(", ")})}
-			}
-			
 			let random_number = (min,max) => {
 				return Math.floor((Math.random() * max) + min);
+			}
+			
+			// Load the word dataset
+			let data = fetch("/thesaurus.json").then((x)=>{return x.text()}).then((y)=>{return y});
+			let wordlist = ["pancake","swarm","dinner","understand","worm","apathy","excavation","circle","layer","church","fear","wedding","cotton","dough","conductor","poison","fixture","recommend","stall","call","horseshoe","switch","average","entertain","cup","litigation","chaos","grounds","coincide","full","carbon","strong","pollution","adopt","chimpanzee","match","fog","hand","harmful","missile","positive","responsibility","reform","parachute","exercise","flour","cheap","frequency","hot","delivery","bike"];
+			
+			let findSynonyms = (w) => {
+				w = w.toLowerCase();
+				return data.then((x)=>{return x.split("\n").find(x=>x.includes(w)).split("[")[1].split("]")[0].replaceAll("\"","").split(", ")}).catch(()=>{return data.then((x)=>{return x.split("\n").find(x=>x.includes(wordlist[random_number(0, wordlist.length)])).split("[")[1].split("]")[0].replaceAll("\"","").split(", ")})})
 			}
 
 			let generate = document.getElementById("generate");
