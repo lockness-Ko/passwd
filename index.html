@@ -17,8 +17,9 @@
 		<pre id="readme">
 			This website uses javascript to fetch the readme and put it in this pre tag
 		</pre>
+		<script src="/marked.min.js"></script>
 		<script>
-			fetch('https://raw.githubusercontent.com/lockness-Ko/passwd/main/README.md').then(x=>x.text()).then((y)=>{document.getElementById("readme").innerHTML=y})
+			fetch('https://raw.githubusercontent.com/lockness-Ko/passwd/main/README.md').then(x=>x.text()).then((y)=>{document.getElementById("readme").innerHTML=marked.parse(y)})
 		</script>
 	</body>
 </html>
