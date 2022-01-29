@@ -29,7 +29,9 @@
 			let wordlist = ["pancake","swarm","dinner","understand","worm","apathy","excavation","circle","layer","church","fear","wedding","cotton","dough","conductor","poison","fixture","recommend","stall","call","horseshoe","switch","average","entertain","cup","litigation","chaos","grounds","coincide","full","carbon","strong","pollution","adopt","chimpanzee","match","fog","hand","harmful","missile","positive","responsibility","reform","parachute","exercise","flour","cheap","frequency","hot","delivery","bike"];
 			
 			let firstCapital = (wo) => {
+				try {
 				return wo[0].toUpperCase() + wo.substring(1);
+				} catch (e) {return wo}
 			}
 			
 			let findSynonyms = (w) => {
