@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>passwd | generator</title>
+	</head>
+	<body>
+		<h1>passwd - generator</h1>
+		<p>You do need javascript to enable this page! If you don't trust us (which you shouldn't) you should manually read through the code before generating the password. There are no 3rd-party scripts or resources used, just plain javascript and a database of words</p>
+		<hr>
+		<input id="breakfast" type="text" placeholder="What did you have for breakfast?"></input>
+		<br><input id="word" type="text" placeholder="What is your favorite word?"></input>
+		<br><input id="holiday" type="text" placeholder="What was something you did on your last holiday?"></input>
+		<br><input id="friends" type="text" placeholder="What are the names of some long lost friends?"></input>
+		<br><button id="generate">Generate</button>
+		<script>
+			// Anything with two slashes before it is a comment!
+			
+			// Load the word dataset
+			let data = fetch("/thesaurus.json").then((x)=>{return x.text()}).then((y)=>{return y});
+			
+			let findSynonyms = (w) => {
+				return data.then((x)=>{return x.split("\n").find(x=>x.includes(w)).split("[")[1].split("]")[0].replaceAll("\"","").split(", ")})
+			}
+			
+			let random_number = (min,max) => {
+				return Math.floor((Math.random() * max) + min);
+			}
+
+			let generate = document.getElementById("generate");
+
+			generate.onclick = async () => {
+				// The syntax 'let something = function.doSomething("value")' sets the variable 'something' to the output of 'function.doSomething("value")'
+				// In this case, we are getting the values of the input fields and putting them inside variables
+				let breakfast = (await findSynonyms(document.getElementById("breakfast").value));
+				let word = (await findSynonyms(document.getElementById("word").value));
+				let holiday = (await findSynonyms(document.getElementById("holiday").value));
+				let friends = (await findSynonyms(document.getElementById("friends").value));
+
+				let password = breakfast[random_number(0, breakfast.length)]+word[random_number(0, word.length)]+holiday[random_number(0, holiday.length)]+friends[random_number(0, friends.length)]
+				password = password.replaceAll(" ", "")+random_number(1000,9999);
+			
+				if(password.length >= 40) {
+					generate.onclick()	
+				}
+				else {
+					alert("Password Generated! Write this password down in an OPEN-SOURCE password manager or REMEMBER the password. You can click generate again if you do not like this password. DO NOT COPY IT. \n"+password)
+				}
+			}
+			
+		</script>
+	</body>
+</html>
